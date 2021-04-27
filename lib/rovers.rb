@@ -5,14 +5,24 @@ class Rovers
   def self.scan_territory(scanning_instructions)
     return 'Error: No scanning instructions provided' unless scanning_instructions != ''
 
-    # TODO: Add more error hadnling
+    rover_1_final_position, rover_2_final_position = execute_scan(scanning_instructions)
 
+    report_scan_results(rover_1_final_position, rover_2_final_position)
+  end
+
+  def self.execute_scan(scanning_instructions)
+    puts '********** BEGINNING SCAN **********'
     grid_size, rover_1_start_position, rover_1_commands, rover_2_start_position, rover_2_commands = analyse(scanning_instructions)
 
     rover_1_final_position = update_rover_position(grid_size, rover_1_start_position, rover_1_commands)
     rover_2_final_position = update_rover_position(grid_size, rover_2_start_position, rover_2_commands)
+    [rover_1_final_position, rover_2_final_position]
+  end
 
-    "#{rover_1_final_position} \n #{rover_2_final_position}"
+  def self.report_scan_results(rover_1_final_position, rover_2_final_position)
+    final_positions = "#{rover_1_final_position} \n #{rover_2_final_position}"
+    puts "********** \nSCAN COMPLETE. FINAL ROVER POSITIONS: \n #{final_positions} \n**********"
+    final_positions
   end
 
   def self.analyse(scanning_instructions)
@@ -30,23 +40,24 @@ class Rovers
     y = start_position[1]
     position = [x, y]
     direction = start_position[2]
-    puts "**********COMMANDS #{commands}"
+
+    puts '********** UPDATING ROVER LOCATION **********'
+    puts "COMMAND LIST RECEIVED: #{commands}"
+    puts "ROVER START LOCATION #{[*position, direction]}"
 
     commands.each do |command|
-      puts "**********START LOCATION #{[*position, direction]}"
-      puts "**********COMMAND #{command}"
       if command == 'L'
         direction = turn_left(direction)
-        puts "NEW DIRECTION #{direction}"
+        puts "TURNING LEFT TO FACE #{direction}"
       elsif command == 'R'
         direction = turn_right(direction)
-        puts "NEW DIRECTION #{direction}"
+        puts "TURNING RIGHT TO FACE #{direction}"
       elsif command == 'M'
         position = move(grid_size, position, direction)
-        puts "NEW POSITION #{position}"
+        puts "MOVING TO NEW POSITION #{position}"
       end
-      puts "**********END LOCATION #{[*position, direction]}"
     end
+    puts "********** ROVER LOCATION UPDATED TO #{[*position, direction]}"
     [*position, direction].join(' ')
   end
 
@@ -81,7 +92,6 @@ class Rovers
     max_y = grid_size[1].to_i
     x = position[0].to_i
     y = position[1].to_i
-    puts x, y
     y = direction == 'N' && y <= max_y ? (y + 1) : y
     x = direction == 'E' && x <= max_x ? (x + 1) : x
     y = direction == 'S' && y.positive? ? (y - 1) : y
