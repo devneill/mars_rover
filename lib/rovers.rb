@@ -12,12 +12,12 @@ class Rovers
   end
 
   def scan_territory
-    return '********** ERROR: INVALID SCANNING INSTRUCTIONS PROVIDED **********' unless @valid_instructions
+    return '********** ERROR: INVALID SCANNING INSTRUCTIONS PROVIDED' unless @valid_instructions
 
-    puts '********** BEGINNING SCAN **********'
+    puts '********** BEGINNING SCAN'
     execute_scan
 
-    puts "********** \nSCAN COMPLETE. FINAL ROVER POSITIONS: \n #{final_positions} \n**********"
+    puts "SCAN COMPLETE. FINAL ROVER POSITIONS: \n #{final_positions}"
     final_positions
   end
 
@@ -65,7 +65,7 @@ class Rovers
     start_position = [x, y]
     start_direction = rover[:start_position][2]
 
-    puts "********** UPDATING ROVER #{index + 1} LOCATION **********"
+    puts "********** UPDATING ROVER #{index + 1} LOCATION"
     puts "COMMAND LIST RECEIVED: #{rover[:commands]}"
     puts "ROVER START LOCATION #{[*start_position, start_direction]}"
 
