@@ -4,7 +4,7 @@ RSpec.describe Rovers do
   describe '#scan_territory' do
     context 'given a invalid input' do
       it 'returns an error message' do
-        expect(Rovers.new('invalid input').scan_territory).to eql '********** ERROR: INVALID SCANNING INSTRUCTIONS PROVIDED **********'
+        expect(Rovers.new('invalid input').scan_territory).to eql '********** ERROR: INVALID SCANNING INSTRUCTIONS PROVIDED'
       end
     end
 
