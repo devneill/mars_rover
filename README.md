@@ -1,4 +1,4 @@
-# The Platform45 mars rover program
+# The [Google mars rover program](https://code.google.com/archive/p/marsrovertechchallenge/)
 
 ## To run locally
 
